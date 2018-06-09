@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -5,15 +6,16 @@
 using namespace std;
 
 class TestCase{
+protected:
   string test_name;
-  ostream output_stream;
+  ostream& output_stream;
   int failed , passed , total;
 public:
-  TestCase();
   TestCase(const string& , ostream&);
+  TestCase(const TestCase&);
   template<typename T> TestCase& check_equal(const T&, const T&);
   template<typename T> TestCase& check_different(const T&, const T&);
-  template<typename T> TestCase& check_function(std::function<T(T,T)>,const T&, const T&);
+  //template<typename T> TestCase& check_function(std::function<int(const int&,T&,T&)>,const T&, const T&);
   template<typename T> TestCase& check_output(const T&, const string&);
-  template<typename T> void print();
+  void print()const;
 };
