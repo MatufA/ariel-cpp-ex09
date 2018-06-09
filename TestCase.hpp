@@ -34,10 +34,10 @@ public:
       } 
       return *this;
   }
-  /**
-  template<typename T> TestCase& check_function(std::function<int(const int&,T&,T&)>func,const T& a, const T& b){
+
+  template<typename T> TestCase& check_function(int (*func)(T&,T&),const T& a, const T& b){
       total++;
-      if(func(a) == b){
+      if(func((T)a) == (T)b){
         failed++;
         output_stream << test_name << ": Failure in test #" << total;
         output_stream << b << "  should equal  " << a <<"!" << endl;
@@ -45,7 +45,7 @@ public:
       else passed++;
       return *this;
   }
-  */
+
   template<typename T> TestCase& check_output(const T& a, const string& str){
       stringstream ss;
       ss << (T)a;
