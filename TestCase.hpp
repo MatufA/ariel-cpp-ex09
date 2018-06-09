@@ -13,7 +13,9 @@ protected:
 public:
   TestCase(const string& , ostream&);
   TestCase(const TestCase&);
-  template<typename T> TestCase& check_equal(const T& a, const T& b){
+  
+  template<typename T> 
+  TestCase& check_equal(const T& a, const T& b){
       total++;
       if((T)a == (T)b) passed++;
       else{
@@ -24,7 +26,8 @@ public:
       return *this;
   }
 
-  template<typename T> TestCase& check_different(const T& a, const T& b){
+  template<typename T> 
+  TestCase& check_different(const T& a, const T& b){
       total++;
       if((T)a != (T)b) passed++;
       else{
@@ -35,18 +38,22 @@ public:
       return *this;
   }
 
-  template<typename T> TestCase& check_function(int (*func)(T&,T&),const T& a, const T& b){
+  template<typename R, typename T1, typename T2> 
+  TestCase& check_function(R func,const T1& a, const T2& b){
       total++;
-      if(func((T)a) == (T)b){
+      T2 test = func(a);
+      if((T2)test != (T2)b){
         failed++;
+        //Test int operators: Failure in test #4: Function should return 25 but returned 125!
         output_stream << test_name << ": Failure in test #" << total;
-        output_stream << b << "  should equal  " << a <<"!" << endl;
+        output_stream << ": Function should return " << b << " but returned " << test <<"!" << endl;
       } 
       else passed++;
       return *this;
   }
 
-  template<typename T> TestCase& check_output(const T& a, const string& str){
+  template<typename T> 
+  TestCase& check_output(const T& a, const string& str){
       stringstream ss;
       ss << (T)a;
       total++;

@@ -5,5 +5,5 @@ TestCase :: TestCase(const string& test_name , std::ostream& stream):
 
 void TestCase :: print()const{
     output_stream << test_name << ": " << failed << " failed, ";
-    output_stream << passed << " passed, " << total << " total" << endl;
+    output_stream << passed << " passed, " << total << " total" << endl << "---" << endl;
 }
